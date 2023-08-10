@@ -1,0 +1,70 @@
+deposito = 'd'
+saque = 's'
+extrato = 'e'
+fim = 'f'
+registro = []
+saldo = 0
+totalOperacoes = 0
+totalSaques = 0
+LIMITE_SAQUES = 3
+
+instrucoes = """
+As operações válidas são as seguintes:
+d ----------------- depósito
+s ----------------- saque
+e ----------------- extrato
+f ----------------- fim da operação
+
+"""
+
+print(instrucoes)
+
+operacao = input("Insira a operação desejada: ")
+print()
+while True:
+    
+  if operacao == 'd':
+
+      valorDepositado = float(input('Insira o valor a ser depositado: R$'))
+      saldo += valorDepositado
+      print(f'R${valorDepositado:3.2f} depositado com sucesso')
+      registro.append('Depósito')
+      registro.append(valorDepositado)
+      
+  elif operacao == 's':
+    valorSacado = float(input('Insira o valor a sacar: '))
+
+    if valorSacado > saldo:
+      print('Saldo insuficiente')
+ 
+    else:
+      if totalSaques <= 0:
+        print('Saque realizado com sucesso')
+        registro.append('Saque')
+        registro.append(valorSacado)
+        totalSaques+=1
+        saldo-=valorSacado
+      else:
+        print('Número máximo de saques atingidos')
+    
+  elif operacao == 'e':
+    print(f'---------EXTRATO---------')
+    print(f'Saldo: {saldo}')
+    print()
+    for i in range(len(registro)-1):
+      if i%2==0:
+        print(f'{registro[i]}: {registro[i+1]}')    
+      else:
+        continue
+    print('-------------------------')
+    print()
+  elif  operacao == 'f':
+    print('Obrigado por utilizar nossos serviços. Volte sempre!')
+    break
+
+  else:
+    print('Operação não definida')
+    break
+
+  operacao = input("Insira a operação desejada: ")
+  print()
